@@ -1,0 +1,41 @@
+﻿<Window x:Class="TextEditorApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TextEditorApp"
+        Title="MainWindow" Height="450" Width="800">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CloseCommand_Executed" />
+        <CommandBinding Command="Save" Executed="SaveCommand_Executed" CanExecute="SaveCommand_CanExecute" />
+        <CommandBinding Command="local:CustomCommands.WrapText" Executed="WrapTextCommand_Executed" />
+        <CommandBinding Command="local:CustomCommands.IncreaseFont" Executed="IncreaseFontCommand_Executed" CanExecute="IncreaseFontCommand_CanExecute" />
+    </Window.CommandBindings>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" FontSize="16" Background="LightBlue">
+            <MenuItem Header="_Plik">
+                <MenuItem Header="_Nowy" Command="New" />
+                <MenuItem Header="_Otwórz" Command="Open" />
+                <MenuItem Header="_Zapisz" Command="Save" />
+                <Separator />
+                <MenuItem Header="_Zamknij" Command="Close" />
+            </MenuItem>
+            <MenuItem Header="_Edycja">
+                <MenuItem Header="_Kopiuj" Command="Copy" />
+                <MenuItem Header="_Wytnij" Command="Cut" />
+                <MenuItem Header="_Wklej" Command="Paste" />
+            </MenuItem>
+            <MenuItem Header="_Narzędzia">
+                <MenuItem Header="Zawijaj wiersze" Command="local:CustomCommands.WrapText" IsCheckable="True" />
+                <MenuItem Header="Powiększ tekst" Command="local:CustomCommands.IncreaseFont" />
+            </MenuItem>
+        </Menu>
+
+        <StackPanel DockPanel.Dock="Right" Width="100" Background="LightBlue">
+            <Button x:Name="CopyButton" Content="Kopiuj" Margin="5" Click="CopyButton_Click" IsEnabled="False" />
+            <Button Content="Zawijaj" Command="local:CustomCommands.WrapText" Margin="5" />
+        </StackPanel>
+
+        <TextBox x:Name="TextBoxEditor" Background="AliceBlue" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" SelectionChanged="TextBoxEditor_SelectionChanged" />
+    </DockPanel>
+</Window>
